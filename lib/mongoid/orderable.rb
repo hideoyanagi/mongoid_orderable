@@ -114,11 +114,11 @@ module Mongoid::Orderable
 	end
 	
 	def lower_item
-		in_list.where(orderable_column.gt => self.send(orderable_position).asc(orderable_position).first
+		in_list.where(orderable_column.gt => orderable_position).asc(orderable_position).first
 	end
 
 	def higher_item
-		in_list.where(orderable_column.lt => self.send(orderable_position).asc(orderable_position).last
+		in_list.where(orderable_column.lt => orderable_position).asc(orderable_position).last
 	end
 
 
