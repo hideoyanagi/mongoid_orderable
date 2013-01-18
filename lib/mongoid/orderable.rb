@@ -26,6 +26,9 @@ module Mongoid::Orderable
       when Symbol then
         scope :orderable_scope, lambda { |document|
           where(configuration[:scope] => document.send(configuration[:scope])) }
+      when String then
+        scope :orderable_scope, lambda { |document|
+          where(configuration[:scope] => document.send(configuration[:scope])) }
       when Proc then
         scope :orderable_scope, configuration[:scope]
       else
@@ -154,8 +157,8 @@ private
     target_position = case target_position.to_sym
       when :top then orderable_base
       when :bottom then bottom_orderable_position
-      when :higher then orderable_position.pred
-      when :lower then orderable_position.next
+      when :higher, :up then orderable_position.pred
+      when :lower, :down then orderable_position.next
     end unless target_position.is_a? Numeric
 
     target_position = orderable_base if target_position < orderable_base
