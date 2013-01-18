@@ -109,6 +109,19 @@ module Mongoid::Orderable
     orderable_scoped.where(orderable_column.gt => orderable_position).inc(orderable_column, -1)
   end
 
+	def in_list
+		orderable_scoped
+	end
+	
+	def lower_item
+		in_list.where(orderable_column.gt => self.send(orderable_position).asc(orderable_position).first
+	end
+
+	def higher_item
+		in_list.where(orderable_column.lt => self.send(orderable_position).asc(orderable_position).last
+	end
+
+
 private
 
   def orderable_position
